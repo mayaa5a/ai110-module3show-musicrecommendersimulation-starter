@@ -11,13 +11,36 @@ Your goal is to:
 - Evaluate what your system gets right and wrong
 - Reflect on how this mirrors real world AI recommenders
 
-Replace this paragraph with your own summary of what your version does.
+Real-world recommenders compare a user’s profile to item attributes and score each item by how well it matches. They usually combine exact matches for categorical traits like genre or mood with similarity-based scoring for numerical traits like energy or tempo. My version will prioritize songs that fit the user’s preferred genre and mood first, then reward songs whose energy and acousticness are closer to the user’s taste.
+
+Features Used in This Simulation
+Song
+
+id
+title
+artist
+genre
+mood
+energy
+tempo_bpm
+valence
+danceability
+acousticness
+UserProfile
+
+favorite_genre
+favorite_mood
+target_energy
+likes_acoustic
 
 ---
 
 ## How The System Works
 
 Explain your design in plain language.
+
+My music recommender system loads songs from a CSV file and scores each one against a user profile by awarding +2.0 points for matching genre, +1.0 for matching mood, adding energy similarity (scaled by 0.5), and adjusting for acoustic preference, then ranks the top K songs for recommendations. This approach prioritizes categorical matches for style and emotion while rewarding numerical closeness, but potential biases include over-prioritizing genre (e.g., favoring pop songs even if they don't match mood), ignoring great mood-matched songs in underrepresented genres, and assuming rigid numerical preferences that don't account for user flexibility or context.
+
 
 Some prompts to answer:
 
@@ -38,7 +61,7 @@ You can include a simple diagram or bullet list if helpful.
 1. Create a virtual environment (optional but recommended):
 
    ```bash
-   python -m venv .venv
+   python3 -m venv .venv
    source .venv/bin/activate      # Mac or Linux
    .venv\Scripts\activate         # Windows
 
@@ -51,7 +74,7 @@ pip install -r requirements.txt
 3. Run the app:
 
 ```bash
-python -m src.main
+python3 -m src.main
 ```
 
 ### Running Tests
