@@ -74,10 +74,7 @@ def load_songs(csv_path: str) -> List[Dict]:
     return songs
 
 def recommend_songs(user_prefs: Dict, songs: List[Dict], k: int = 5) -> List[Tuple[Dict, float, str]]:
-    """
-    Functional implementation of the recommendation logic.
-    Required by src/main.py
-    """
+    """Recommends top k songs based on user preferences."""
     def explain_score(song: Dict, user_prefs: Dict) -> str:
         reasons = []
         if song['genre'] == user_prefs['favorite_genre']:
@@ -106,9 +103,7 @@ def recommend_songs(user_prefs: Dict, songs: List[Dict], k: int = 5) -> List[Tup
 
 
 def score_song(user_prefs: Dict, song: Dict) -> float:
-    """
-    Scores a single song based on user preferences.
-    """
+    """Scores a single song based on user preferences."""
     score = 0.0
     
     # Genre match: +2.0
