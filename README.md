@@ -37,22 +37,26 @@ likes_acoustic
 
 ## How The System Works
 
-Explain your design in plain language.
-
 My music recommender system loads songs from a CSV file and scores each one against a user profile by awarding +2.0 points for matching genre, +1.0 for matching mood, adding energy similarity (scaled by 0.5), and adjusting for acoustic preference, then ranks the top K songs for recommendations. This approach prioritizes categorical matches for style and emotion while rewarding numerical closeness, but potential biases include over-prioritizing genre (e.g., favoring pop songs even if they don't match mood), ignoring great mood-matched songs in underrepresented genres, and assuming rigid numerical preferences that don't account for user flexibility or context.
 
+Each song in the catalog includes genre, mood, energy, tempo, valence, danceability, and acousticness. The user profile stores favorite genre, favorite mood, target energy, and whether the user likes acoustic tracks.
 
-Some prompts to answer:
+The recommender computes a score for every song by checking genre and mood matches, measuring how close the song's energy is to the requested energy, and then adding or subtracting points based on acousticness and the user's preference. The system then sorts all songs by that score and returns the top results.
 
-- What features does each `Song` use in your system
-  - For example: genre, mood, energy, tempo
-- What information does your `UserProfile` store
-- How does your `Recommender` compute a score for each song
-- How do you choose which songs to recommend
-
-You can include a simple diagram or bullet list if helpful.
+This means the final recommendations are chosen by the best overall match to the profile, not just one feature alone.
 
 ---
+
+## Screenshots 
+![alt text](<Screenshot 2026-04-10 at 11.10.50 AM.png>)
+
+![alt text](<Screenshot 2026-04-13 at 12.50.15 AM.png>)
+
+![alt text](<Screenshot 2026-04-13 at 12.50.21 AM.png>)
+
+![alt text](<Screenshot 2026-04-13 at 12.50.31 AM.png>)
+
+![alt text](<Screenshot 2026-04-13 at 12.50.36 AM.png>)
 
 ## Getting Started
 
@@ -96,6 +100,11 @@ Use this section to document the experiments you ran. For example:
 - What happened when you changed the weight on genre from 2.0 to 0.5
 - What happened when you added tempo or valence to the score
 - How did your system behave for different types of users
+
+### Summary of the experiment in this repository
+- I tested four user profiles: High-Energy Pop, Chill Lofi, Deep Intense Rock, and Conflicting Energy & Mood.
+- I modified the scoring logic to reduce genre importance and increase energy importance, which caused the top recommendations to favor songs with energy closer to the target values.
+- This change made the model more sensitive to energy alignment, especially for high-energy profiles, while exposing dataset bias for rare combinations like high energy plus sad mood.
 
 ---
 

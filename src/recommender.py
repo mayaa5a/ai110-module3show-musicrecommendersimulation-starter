@@ -106,17 +106,17 @@ def score_song(user_prefs: Dict, song: Dict) -> float:
     """Scores a single song based on user preferences."""
     score = 0.0
     
-    # Genre match: +2.0
+    # Genre match: reduced importance for this experiment
     if song['genre'] == user_prefs['favorite_genre']:
-        score += 2.0
+        score += 1.0
     
-    # Mood match: +1.0
+    # Mood match: unchanged importance
     if song['mood'] == user_prefs['favorite_mood']:
         score += 1.0
     
-    # Energy similarity: (1.0 - abs(diff)) * 0.5
+    # Energy similarity: doubled importance for the small data experiment
     energy_diff = abs(song['energy'] - user_prefs['target_energy'])
-    energy_similarity = (1.0 - energy_diff) * 0.5
+    energy_similarity = (1.0 - energy_diff) * 1.0
     score += energy_similarity
     
     # Acoustic preference
